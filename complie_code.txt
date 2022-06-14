@@ -1,10 +1,6 @@
+# series model code
 g++ main.cpp model_setup.cpp resampling_func.cpp -o compare.exe
 ./compare.exe
-
-
-# parallel code
-g++ -fopenmp para_resampling_func.cpp -o para.exe
-./para.exe
 
 # paralel model code
 g++ -fopenmp para_main.cpp para_model_setup.cpp para_resampling_func.cpp -o para_compare.exe
@@ -18,11 +14,10 @@ g++ series_time.cpp model_setup.cpp resampling_func.cpp -o series_time.exe
 g++ -fopenmp para_time.cpp para_model_setup.cpp para_resampling_func.cpp -o para_time.exe
 ./para_time.exe
 
-
 # prior model code 
 g++ -fopenmp para_prior_main.cpp para_prior_edit_model_setup.cpp para_resampling_func.cpp -o para_prior_main.exe
 ./para_prior_main.exe
 
 # para opt code
-g++ -fopenmp para_opt_main.cpp para_model_opt_setup.cpp para_resampling_func.cpp -o para_opt_main.exe 
+g++ -fopenmp para_opt_main.cpp para_model_opt_setup.cpp para_resampling_func.cpp -o para_opt_main.exe
 ./para_opt_main.exe

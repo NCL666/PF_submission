@@ -7,6 +7,7 @@
 
 //declare the model function
 std::vector<double> model(int T, int N, void (*resampling_func)(std::vector<double>&, std::vector<int>&, int, std::vector<std::default_random_engine>&), bool save, std::string file_name, int nthreads, int redraw_num, double EPN_threshold, double rough_var);
+
 //declare the resampling function
 void para_rejection_resampling(std::vector<double> &weight_vec, std::vector<int> &sample_index, int nthreads, std::vector<std::default_random_engine> &generator_vec);
 void para_metropolis_resampling(std::vector<double> &weight_vec, std::vector<int> &sample_index, int nthreads, std::vector<std::default_random_engine> &generator_vec);
@@ -16,14 +17,13 @@ void para_stratified_resampling(std::vector<double> &weight_vec, std::vector<int
 int main() {
     int T = 75;
     int nthread = 4;
+    int redraw_num = 3;
     int i, j, N;
     int repeat = 10;
+    double EPN_threshold = 0.5;
+    double rough_var = 1.0;
 
     double ENP_sum, MSE_sum, time_sum;
-
-    int redraw_num = 3;
-    double EPN_threshold = 0.25;
-    double rough_var = 2.0;
 
     /*Change N */
     int N_num = 6;
@@ -41,6 +41,7 @@ int main() {
     csv_writer.open(filename);
     for (i = 0; i < N_num; i++){
         N = N_vec[i];
+
         // average over repeats of parallel rejection
         ENP_sum = 0;
         MSE_sum = 0;
@@ -52,7 +53,7 @@ int main() {
             time_sum += result[2];
         }
         csv_writer << ENP_sum/repeat << ',' << MSE_sum/repeat << ',' << time_sum/repeat << ',';
-        
+
         // average over repeats of parallel metropolis
         ENP_sum = 0;
         MSE_sum = 0;
@@ -64,7 +65,7 @@ int main() {
             time_sum += result[2];
         }
         csv_writer << ENP_sum/repeat << ',' << MSE_sum/repeat << ',' << time_sum/repeat << ',';
-        
+
         // average over repeats of parallel systematic
         ENP_sum = 0;
         MSE_sum = 0;
